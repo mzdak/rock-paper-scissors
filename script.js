@@ -1,53 +1,75 @@
+const btn = document.querySelectorAll('img');
+const userScore = document.querySelector('#your-score');
+const compScore = document.querySelector('#comp-score');
+const result =document.querySelector('#result')
+const main =document.querySelector('#main')
+const roundResult = document.createElement('p');
+
 function getComputerChoice(){
-    let choice = Math.floor(Math.random() * 3) + 1;     //get get random number between 1 and 3.
-    //MDN says that this results in a no-uniform distributipn.Change later.
-    console.log(choice)
-    return choice
+    let choice = Math.floor(Math.random() * 3) + 1;
+    if(choice==1) return 'rock';
+    if(choice==2) return 'paper';
+    if(choice==3) return 'scissors'
 }
 
-function getUserChoice(){
-    let choice = prompt("Choose Rock Paper or Scissor: ").toLowerCase();
-    console.log(choice)
-    let choiceValue;
-    if (choice === "rock"){
-        choiceValue = 1;
-    }else if(choice === "paper"){
-        choiceValue = 2;
-    }else if(choice === "scissor"){
-        choiceValue = 3;
-    }else{
-        return "Wrong input."
-    }
-
-    return choiceValue;
-}
+let userWin = 0;
+let compWin = 0;
 
 function playRound(computerChoice, userChoice){
-    if(computerChoice===userChoice){
-        return "It's a draw!"
-    } else if(computerChoice===1 && userChoice===2 || computerChoice===2 && userChoice===3 || computerChoice===3 &&userChoice===1){
-        return "You win!"
-    } else{return "You lose..."}
-}
+    console.log(computerChoice);
+    console.log(userChoice);
+    if(computerChoice==='rock' && userChoice==='rock' ||
+    computerChoice==='paper' && userChoice==='paper' ||
+     computerChoice==='scissors' &&userChoice==='scissors'){
+        roundResult.innerHTML = `It's a draw.`
+        console.log("It's a draw!")
+    } 
+    else if(computerChoice==='rock' && userChoice==='paper'||
+    computerChoice==='paper' && userChoice==='scissors'||
+    computerChoice==='scissors' &&userChoice==='rock'){
+        roundResult.innerHTML = `You win. <br>${userChoice} beats ${computerChoice}.`
+        console.log("Paper beats rock. You win!");
+        userWin +=1;
+        userScore.textContent = `Player: ${userWin}`;
+    }
+    
+    else {
+        roundResult.innerHTML = `You lose.<br> ${computerChoice} beats ${userChoice}.`
+        console.log("You lose...");
+        compWin += 1;
+        compScore.textContent = `Computer: ${compWin}`;
+    }
 
-function game(){
-    let userWin = 0
-    let compWin = 0
-    for(let i=1; i<= 5; i++){
-        let result = playRound(getComputerChoice(), getUserChoice())
-        console.log(result)
-        if (result === "You win!"){
-            userWin +=1
-        } else if(result === "You lose..."){
-            compWin +=1
+    if(userWin == 5){
+        console.log("You win the game!");
+        if(confirm("You've Won!\nDo you want to play again?")){
+            userWin = 0;
+            compWin = 0;
+            userScore.textContent = `Player: ${userWin}`;
+            compScore.textContent = `Computer: ${compWin}`;
+            roundResult.innerHTML = '';
+        }
+        
+    }
+    if(compWin == 5){
+        console.log("You lose the game!")
+        if(confirm('You Lose...\nDo you want to play again?')){
+            userWin = 0;
+            compWin = 0;
+            userScore.textContent = `Player: ${userWin}`;
+            compScore.textContent = `Computer: ${compWin}`;
+            roundResult.innerHTML = '';
         }
     }
 
-    if(userWin>compWin){
-        console.log("You win the game!")
-    } else if(compWin > userWin){
-        console.log("You lost the game...")
-    } else{ console.log("The game ended in a draw.")}
+    roundResult.setAttribute('style', 'display:flex; justify-content: center; align-items:center; font-size:1.5em');
+    main.appendChild(roundResult);
 }
 
-game()
+
+btn.forEach(button => {
+    button.addEventListener('click', function(){
+
+        playRound(getComputerChoice(), button.alt);
+    });
+})

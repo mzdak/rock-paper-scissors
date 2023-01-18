@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <title>Rock-Paper-Scissors</title>
 </head>
 <body>
-    
+    <header>
+        <h1>ROCK PAPER SCISSORS</h1>
+    </header>
+    <div id="main">
+        <p class="intro">The first to score 5 points wins the game!</p>
+        <div class="choices">
+            <img id="rock" src="images/rock.png" alt="rock">
+            <img id="paper" src="images/paper.png" alt="paper">
+            <img id="scissors" src="images/scissors.png" alt="scissors">
+        </div>
+        <div id="result">
+            <p id="your-score">Player: 0</p>
+            <p id="comp-score">Computer: 0</p>
+        </div>
+    </div>
+    <footer>
+        <p>created by: Ma9i5</p>
+    </footer>
 </body>
 </html>
