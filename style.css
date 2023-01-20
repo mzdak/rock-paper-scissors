@@ -45,6 +45,14 @@ h1{
     justify-content: center;
     font-size: 1.75em;
 }
+
+.user-choice{
+    filter: drop-shadow(-5px -5px 10px red);
+}
+
+.comp-choice{
+    filter: drop-shadow(5px 5px 10px blue);
+}
 /* #rock{
     filter: drop-shadow(4px 0px 0 red);
 } */
